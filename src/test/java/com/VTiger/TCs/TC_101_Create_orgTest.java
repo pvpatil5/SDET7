@@ -13,6 +13,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
+import com.ObjectRepo.CreateOrgPage;
+import com.ObjectRepo.HomePage;
+import com.ObjectRepo.LoginPage;
+import com.ObjectRepo.OrganizationsInfoPage;
 import com.VTiger.generic.FakeData;
 import com.VTiger.generic.PropertyFile;
 import com.VTiger.generic.WebDriverUtil;
@@ -23,8 +27,8 @@ public class TC_101_Create_orgTest {
 	public static WebDriver driver;
 
 	public static void main(String[] args) throws InterruptedException, IOException {
-		
-		
+
+
 		//Step 1 : Getting the Data reqd for TC
 		FakeData fakeData = new FakeData();
 		String orgname = fakeData.companyname();
@@ -56,42 +60,49 @@ public class TC_101_Create_orgTest {
 
 
 		// Step 5 : Login to Application 
-		driver.findElement(By.name("user_name")).sendKeys(prop.readDatafromPropfile("username"),Keys.TAB,prop.readDatafromPropfile("password"));
-		driver.findElement(By.id("submitButton")).click();
+		LoginPage loginPage= new LoginPage(driver);
+		loginPage.getUsernametextbox().sendKeys(prop.readDatafromPropfile("username"));
+		loginPage.getPasswordtextbox().sendKeys(prop.readDatafromPropfile("password"));
+		loginPage.getLoginbtn().click();
+
 
 		//Step 6 : Actual TC
-		WebElement orglink = driver.findElement(By.xpath("//a[text()='Organizations']"));
+		HomePage homePage = new HomePage(driver);
+		WebElement orglink = homePage.getOrglinkbtn();
 		driverUtil.waitankclick(orglink);
 
-		driver.findElement(By.xpath("//img[@src='themes/softed/images/btnL3Add.gif']")).click();
-		driver.findElement(By.xpath("//input[@name='accountname']")).sendKeys(orgname);
-		driver.findElement(By.xpath("//input[@class='crmbutton small save']")).click();
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//a[text()='Organizations']")).click();
-		driver.findElement(By.xpath("//input[@class='txtBox']")).sendKeys(orgname);
-		WebElement organization_name = driver.findElement(By.xpath("//select[@name='search_field']"));
-		organization_name.click();
-		driverUtil.selectDD(organization_name, 1);
+		OrganizationsInfoPage organizationsInfoPage = new OrganizationsInfoPage(driver);
+		organizationsInfoPage.getCreateorglinkbtn().click();
 
-		driver.findElement(By.xpath("//input[@class='crmbutton small create']")).click();
+		CreateOrgPage createOrgPage = new CreateOrgPage(driver);
+		createOrgPage.getOrgnametxtbox().sendKeys(orgname);
+		createOrgPage.getSavebtn().click();
+		Thread.sleep(2000);
+
+		homePage.getOrglinkbtn().click();
+
+		organizationsInfoPage.getSearchorgtxtbox().sendKeys(orgname);
+		driverUtil.selectDD(organizationsInfoPage.getSelectorgtypeDD(), "accountname");
+		organizationsInfoPage.getSearchorgbtn().click();
+
 
 		Thread.sleep(2500);
 		driverUtil.refreshPage();
-		driver.findElement(By.xpath("//input[@name='selected_id']")).click();
+		String actualorgname=organizationsInfoPage.getSearchedorgname().getText();
 
-		driver.findElement(By.xpath("//input[@class='crmbutton small delete']")).click();
-
-		driver.switchTo().alert();
-		driverUtil.acceptAlert();
-
+		if(actualorgname.equalsIgnoreCase(orgname)) {
+			System.out.println("TC pass");
+		}
+		else {
+			System.out.println("TC fail");
+		}
 
 		//Step : Logout and close the driver
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//img[@src='themes/softed/images/user.PNG']")).click();
-		WebElement signout= driver.findElement(By.xpath("//a[text()='Sign Out']"));
+		homePage.getSignoutimg().click();
 
-		driverUtil.moveToelement(signout);
-		driverUtil.waitankclick(signout);
+		driverUtil.moveToelement(homePage.getSignoutimg());
+		driverUtil.waitankclick(homePage.getSignoutlink());
 		Thread.sleep(5000);
 		driver.close();
 
