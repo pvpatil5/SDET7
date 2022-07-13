@@ -3,11 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.VTiger.TCs.TC_151_Create_Campaign_Del_CampTest">
+      <class name="com.VTiger.TCs.TC_101_Create_orgTest">
         <methods>
-          <include name="createcamp"/>
+          <include name="createOrgz"/>
         </methods>
-      </class> <!-- com.VTiger.TCs.TC_151_Create_Campaign_Del_CampTest -->
+      </class> <!-- com.VTiger.TCs.TC_101_Create_orgTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

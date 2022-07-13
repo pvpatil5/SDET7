@@ -1,17 +1,10 @@
 package com.VTiger.TCs;
 
-import java.io.IOException;
-import java.time.Duration;
-
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.Test;
 
 import com.ObjectRepo.CreateOrgPage;
 import com.ObjectRepo.HomePage;
@@ -24,9 +17,10 @@ import com.VTiger.generic.WebDriverUtil;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class TC_101_Create_orgTest {
-	public static WebDriver driver;
+	public  WebDriver driver;
 
-	public static void main(String[] args) throws InterruptedException, IOException {
+	@Test
+	public void createOrgz() throws Throwable {
 
 
 		//Step 1 : Getting the Data reqd for TC
@@ -59,7 +53,7 @@ public class TC_101_Create_orgTest {
 		driverUtil.pageLoadTimeout();
 
 
-		// Step 5 : Login to Application 
+		//Step 5 : Login to Application 
 		LoginPage loginPage= new LoginPage(driver);
 		loginPage.getUsernametextbox().sendKeys(prop.readDatafromPropfile("username"));
 		loginPage.getPasswordtextbox().sendKeys(prop.readDatafromPropfile("password"));
