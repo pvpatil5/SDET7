@@ -16,5 +16,13 @@ public class ExcelUtility
 		return	workbook.getSheet(sheet).getRow(row).getCell(cell).toString();
 
 	}
+	
+	public int getLastRowcount(String path,String sheet) throws EncryptedDocumentException, IOException 
+	{
+		FileInputStream fileInputStream = new FileInputStream(path);
+		Workbook workbook=WorkbookFactory.create(fileInputStream);
+		return	workbook.getSheet(sheet).getLastRowNum();
+
+	}
 
 }
