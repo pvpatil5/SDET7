@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.ObjectRepo.CreateOrgPage;
@@ -83,13 +84,8 @@ public class TC_101_Create_orgTest {
 		Thread.sleep(2500);
 		driverUtil.refreshPage();
 		String actualorgname=organizationsInfoPage.getSearchedorgname().getText();
-
-		if(actualorgname.equalsIgnoreCase(orgname)) {
-			System.out.println("TC pass");
-		}
-		else {
-			System.out.println("TC fail");
-		}
+		
+		Assert.assertEquals(actualorgname, orgname);
 
 		//Step : Logout and close the driver
 		Thread.sleep(2000);

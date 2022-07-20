@@ -3,11 +3,11 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.testng.pac.Priority">
+      <class name="com.testng.pac.Annotation_2">
         <methods>
-          <include name="buysimcard"/>
+          <include name="facebook"/>
         </methods>
-      </class> <!-- com.testng.pac.Priority -->
+      </class> <!-- com.testng.pac.Annotation_2 -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

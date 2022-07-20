@@ -1,26 +1,34 @@
 package com.testng.pac;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Priority 
+public class Priority123
 {
 
-	@Test(priority = 0)
+	@Test()
 	public void  buysimcard() {
 		System.out.println("Buy sim card");
-
+			Assert.assertFalse(true);
 	}
 
-	@Test(priority = 2)
+	@Test()
 	public void activatesimcard() {
 		System.out.println("Sim Activated");
+
 	}
 
 
 
-	@Test(priority = -1)
+	@Test(enabled = true)
 	public void customersupport() {
 		System.out.println("Customer care");
+		Assert.assertFalse(true);
+
+	}
+	@Test
+	public void ss() {
+		System.out.println("new method");
 	}
 
 
